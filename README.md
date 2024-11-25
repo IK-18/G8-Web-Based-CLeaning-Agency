@@ -169,27 +169,6 @@ Endpoints to allow customers to provide feedback and view ratings.
 
 ---
 
-### **7. Dashboard and Reports**
-
-Endpoints to support analytics and reporting for admins or staff.
-
-| **HTTP Method** | **Endpoint**        | **Description**                                    |
-| --------------- | ------------------- | -------------------------------------------------- |
-| `GET`           | `/reports/revenue`  | Generate revenue reports (e.g., monthly, yearly).  |
-| `GET`           | `/reports/bookings` | Fetch booking statistics (e.g., popular packages). |
-| `GET`           | `/reports/feedback` | Fetch aggregated feedback (e.g., average ratings). |
-
----
-
-### Key Notes for Backend Implementation:
-
-1. **Authorization**: Some endpoints (e.g., adding services, deleting feedback) should be restricted to admin or staff users.
-2. **Validation**: Validate incoming data (e.g., ensure proper email format, valid dates).
-3. **Error Handling**: Return meaningful error messages with proper HTTP status codes (e.g., 404 for "Not Found," 400 for "Bad Request").
-4. **Pagination**: For endpoints returning large datasets (e.g., `/bookings`, `/services`), implement pagination for performance.
-
-This comprehensive list of endpoints ensures that the backend can handle all features described in the CleanSwift documentation efficiently. Let me know if you’d like further details or assistance with any specific endpoint!
-
 ## Contributing
 
 Contributions are welcome! Please open a pull request or file an issue if you find any bugs or have feature requests.
