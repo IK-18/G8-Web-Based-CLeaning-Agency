@@ -1,0 +1,25 @@
+{
+	"name": "g8-web-based-cleaning-agency",
+	"version": "1.0.0",
+	"description": "Here’s a sample **README** file for your repository, which includes project details, steps to initialize the database, and instructions for setting up the SQL commands.",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon server.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^5.1.1",
+		"bcryptjs": "^2.4.3",
+		"body-parser": "^1.20.3",
+		"dotenv": "^16.4.5",
+		"express": "^4.21.1",
+		"express-session": "^1.18.1",
+		"g8-web-based-cleaning-agency": "file:",
+		"jsonwebtoken": "^9.0.2",
+		"mysql": "^2.18.1",
+		"mysql2": "^3.11.4",
+		"nodemon": "^3.1.7"
+	}
+}

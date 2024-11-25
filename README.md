@@ -85,6 +85,111 @@ Once the setup is complete:
 -   Make a payment and track the booking status.
 -   Provide feedback and rate the services.
 
+## Endpoints
+
+### **1. User Authentication and Management**
+
+Endpoints for handling user registration, login, and management.
+
+| **HTTP Method** | **Endpoint**          | **Description**                                   |
+| --------------- | --------------------- | ------------------------------------------------- |
+| `POST`          | `/auth/register`      | Register a new user (customer or staff).          |
+| `POST`          | `/auth/login`         | Authenticate a user and return a token.           |
+| `GET`           | `/users/:id`          | Fetch details of a specific user.                 |
+| `PUT`           | `/users/:id`          | Update user details (e.g., name, phone, address). |
+| `DELETE`        | `/accounts/users/:id` | Delete a user account.                            |
+
+---
+
+### **2. Service Management**
+
+Endpoints to handle cleaning service packages.
+
+| **HTTP Method** | **Endpoint**          | **Description**                                  |
+| --------------- | --------------------- | ------------------------------------------------ |
+| `GET`           | `/services`           | Fetch all available service packages.            |
+| `POST`          | `/admin/services`     | Create a new service package (admin/staff only). |
+| `GET`           | `/services/:id`       | Fetch details of a specific service package.     |
+| `PUT`           | `/admin/services/:id` | Update details of a service package.             |
+| `DELETE`        | `/admin/services/:id` | Delete a service package.                        |
+
+---
+
+### **3. Booking Management**
+
+Endpoints to allow customers to book services and manage their bookings.
+
+| **HTTP Method** | **Endpoint**         | **Description**                         |
+| --------------- | -------------------- | --------------------------------------- |
+| `POST`          | `/bookings`          | Create a new booking.                   |
+| `GET`           | `/bookings`          | Fetch all bookings (admin/staff view).  |
+| `GET`           | `/bookings/user/:id` | Fetch all bookings for a specific user. |
+| `GET`           | `/bookings/:id`      | Fetch details of a specific booking.    |
+| `PUT`           | `/bookings/:id`      | Update a booking (e.g., status, date).  |
+| `DELETE`        | `/bookings/:id`      | Cancel a booking.                       |
+
+---
+
+### **4. Payment Processing**
+
+Endpoints to handle payment details and transactions.
+
+| **HTTP Method** | **Endpoint**    | **Description**                        |
+| --------------- | --------------- | -------------------------------------- |
+| `POST`          | `/payments`     | Record a new payment.                  |
+| `GET`           | `/payments`     | Fetch all payments (admin/staff view). |
+| `GET`           | `/payments/:id` | Fetch details of a specific payment.   |
+
+---
+
+### **5. Cleaner Management**
+
+Endpoints to manage cleaners and their assignments.
+
+| **HTTP Method** | **Endpoint**    | **Description**                               |
+| --------------- | --------------- | --------------------------------------------- |
+| `GET`           | `/cleaners`     | Fetch all cleaners (admin/staff view).        |
+| `POST`          | `/cleaners`     | Add a new cleaner (admin/staff only).         |
+| `GET`           | `/cleaners/:id` | Fetch details of a specific cleaner.          |
+| `PUT`           | `/cleaners/:id` | Update cleaner details (e.g., assigned area). |
+| `DELETE`        | `/cleaners/:id` | Remove a cleaner from the system.             |
+
+---
+
+### **6. Feedback System**
+
+Endpoints to allow customers to provide feedback and view ratings.
+
+| **HTTP Method** | **Endpoint**            | **Description**                            |
+| --------------- | ----------------------- | ------------------------------------------ |
+| `POST`          | `/feedback`             | Submit feedback for a cleaner.             |
+| `GET`           | `/feedback`             | Fetch all feedback (admin/staff view).     |
+| `GET`           | `/feedback/cleaner/:id` | Fetch all feedback for a specific cleaner. |
+| `DELETE`        | `/feedback/:id`         | Delete a feedback entry (admin only).      |
+
+---
+
+### **7. Dashboard and Reports**
+
+Endpoints to support analytics and reporting for admins or staff.
+
+| **HTTP Method** | **Endpoint**        | **Description**                                    |
+| --------------- | ------------------- | -------------------------------------------------- |
+| `GET`           | `/reports/revenue`  | Generate revenue reports (e.g., monthly, yearly).  |
+| `GET`           | `/reports/bookings` | Fetch booking statistics (e.g., popular packages). |
+| `GET`           | `/reports/feedback` | Fetch aggregated feedback (e.g., average ratings). |
+
+---
+
+### Key Notes for Backend Implementation:
+
+1. **Authorization**: Some endpoints (e.g., adding services, deleting feedback) should be restricted to admin or staff users.
+2. **Validation**: Validate incoming data (e.g., ensure proper email format, valid dates).
+3. **Error Handling**: Return meaningful error messages with proper HTTP status codes (e.g., 404 for "Not Found," 400 for "Bad Request").
+4. **Pagination**: For endpoints returning large datasets (e.g., `/bookings`, `/services`), implement pagination for performance.
+
+This comprehensive list of endpoints ensures that the backend can handle all features described in the CleanSwift documentation efficiently. Let me know if you’d like further details or assistance with any specific endpoint!
+
 ## Contributing
 
 Contributions are welcome! Please open a pull request or file an issue if you find any bugs or have feature requests.
