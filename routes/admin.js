@@ -7,6 +7,7 @@ const {bookingRouter} = require("./booking");
 const {paymentsRouter} = require("./payment");
 const {cleanerRouter} = require("./cleaner");
 const {feedbackRouter} = require("./feedback");
+const {reportsRouter} = require("./reports");
 
 admin.get("/accounts/:id", (req, res) => {
 	let id = req.params.userId;
@@ -34,6 +35,11 @@ admin.delete("/accounts/:id", (req, res) => {
 		[id],
 		(e, results) => {
 			if (e) throw e;
+			if (results.affectedRows <= 0) {
+				res.status(404).json({
+					message: "User not found!",
+				});
+			}
 			res.status(200).json({message: "User deleted successfully!"});
 		},
 	);
@@ -48,5 +54,7 @@ admin.use("/payments", paymentsRouter);
 admin.use("/cleaners", cleanerRouter);
 
 admin.use("/feedback", feedbackRouter);
+
+admin.use("/reports", reportsRouter);
 
 module.exports.adminRouter = admin;
