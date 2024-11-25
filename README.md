@@ -169,6 +169,20 @@ Endpoints to allow customers to provide feedback and view ratings.
 
 ---
 
+### **7. Report Generation**
+
+Endpoints to generate reports for the admin dashboard.
+
+| **HTTP Method** | **Endpoint**             | **Description**                             |
+| --------------- | ------------------------ | ------------------------------------------- |
+| `GET`           | `/revenue`               | Generate total revenue.                     |
+| `GET`           | `/bookings`              | Generate total bookings.                    |
+| `GET`           | `/bookings/popular`      | Get total bookings and sort by popularity.  |
+| `GET`           | `/feedback/average`      | Generate average feedback for cleaners.     |
+| `GET`           | `/feedback/distribution` | Generate feedback distribution for cleaners |
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please open a pull request or file an issue if you find any bugs or have feature requests.
