@@ -19,7 +19,9 @@ auth.post("/register", async (req, res) => {
 		"INSERT INTO Customer (name, phone, email, address, role, password) VALUES (?, ?, ?, ?, ?, ?)",
 		[`${firstName} ${lastName}`, phone, email, address, role, password],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			let userId = results.insertId;
 			let accessToken = jwt.sign(
 				{
@@ -52,7 +54,9 @@ auth.post("/login", (req, res) => {
 		"SELECT * FROM Customer WHERE email = ? AND role = ?",
 		[email, role],
 		async (e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.length <= 0) {
 				res.status(404).json({
 					message: "User not found!",

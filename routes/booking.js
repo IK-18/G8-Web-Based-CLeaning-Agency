@@ -10,7 +10,9 @@ bookings.get("/", (req, res) => {
 			"SELECT * FROM Booking WHERE CustomerID = ?",
 			[id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.length <= 0) {
 					res.status(404).json({
 						message: "Booking not found!",
@@ -21,7 +23,9 @@ bookings.get("/", (req, res) => {
 		);
 	} else if (req.user.role === "Admin") {
 		pool.query("SELECT * FROM Booking", (e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			res.status(200).send(results);
 		});
 	}
@@ -33,7 +37,9 @@ bookings.get("/:id", (req, res) => {
 		"SELECT * FROM Booking WHERE BookingID = ?",
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.length <= 0) {
 				res.status(404).json({
 					message: "Booking not found!",
@@ -54,7 +60,9 @@ bookings.post("/", (req, res) => {
 			"INSERT INTO Booking (CutomerID, PackageID, Date, Status) VALUES (?, ?, ?, ?)",
 			[userID, pkgID, date, status],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				let bookingID = results.insertId;
 				res.status(200).json({
 					message: "Created Booking successully!",
@@ -71,7 +79,9 @@ bookings.post("/", (req, res) => {
 			"INSERT INTO Booking (CutomerID, PackageID, Date, Status) VALUES (?, ?, ?, ?)",
 			[userID, pkgID, date, status],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				let bookingID = results.insertId;
 				res.status(200).json({
 					message: "Created Booking successully!",
@@ -97,7 +107,9 @@ bookings.put("/:id", (req, res) => {
 		`UPDATE Booking SET ${updateClause} WHERE BookingID = ?`,
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.affectedRows <= 0) {
 				res.status(404).json({
 					message: "Booking not found!",
@@ -116,7 +128,9 @@ bookings.delete("/:id", (req, res) => {
 			"DELETE FROM Booking WHERE BookingID = ? AND CustomerID = ?",
 			[id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.affectedRows <= 0) {
 					res.status(404).json({
 						message: "Booking not found!",
@@ -133,7 +147,9 @@ bookings.delete("/:id", (req, res) => {
 			"DELETE FROM Booking WHERE BookingID = ?",
 			[id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.affectedRows <= 0) {
 					res.status(404).json({
 						message: "Booking not found!",

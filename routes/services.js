@@ -5,7 +5,9 @@ const {pool} = require("../utils/db");
 
 services.get("/", (req, res) => {
 	pool.query("SELECT * FROM ServicePackage", (e, results) => {
-		if (e) throw e;
+		if (e) {
+			res.status(400).json({message: "Error in query", error: e});
+		}
 		res.status(200).send(results);
 	});
 });
@@ -16,7 +18,9 @@ services.get("/:id", (req, res) => {
 		"SELECT * FROM ServicePackage WHERE PackageID = ?",
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.length <= 0) {
 				res.status(404).json({
 					message: "Service Package not found!",
@@ -37,7 +41,9 @@ services.post("/", (req, res) => {
 			"INSERT INTO ServicePackage (Name, Description, Price) VALUES (?, ?, ?)",
 			[name, desc, price],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				let serviceId = results.insertId;
 				res.status(200).json({
 					message: "Created Service Package successully!",
@@ -66,7 +72,9 @@ services.put("/:id", (req, res) => {
 			`UPDATE ServicePackage SET ${updateClause} WHERE PackageID = ?`,
 			[id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.affectedRows <= 0) {
 					res.status(404).json({
 						message: "Service Package not found!",
@@ -87,7 +95,9 @@ services.delete("/:id", (req, res) => {
 			"DELETE FROM ServicePackage WHERE PackageID = ?",
 			[id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				res.status(200).json({message: "User deleted successfully!"});
 			},
 		);

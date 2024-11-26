@@ -14,7 +14,9 @@ user.get("/", (req, res) => {
 		"SELECT * FROM Customer WHERE CustomerID = ?",
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.length <= 0) {
 				res.status(404).json({
 					message: "User not found!",
@@ -42,7 +44,9 @@ user.put("/", (req, res) => {
 		`UPDATE Customer SET ${updateClause} WHERE CustomerID = ?`,
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.affectedRows <= 0) {
 				res.status(404).json({
 					message: "User not found!",

@@ -10,13 +10,17 @@ feedback.get("/", (req, res) => {
 			"SELECT * FROM Feedback WHERE CustomerID = ?",
 			[id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				res.status(200).send(results);
 			},
 		);
 	} else if (req.user.role === "Admin") {
 		pool.query("SELECT * FROM Feedback", (e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			res.status(200).send(results);
 		});
 	}
@@ -30,7 +34,9 @@ feedback.get("/cleaner/:id", (req, res) => {
 			"SELECT * FROM Feedback WHERE CleanerID = ? AND CustomerID = ?",
 			[cleanerID, id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.length <= 0) {
 					res.status(404).json({
 						message: "Feedback not found!",
@@ -45,7 +51,9 @@ feedback.get("/cleaner/:id", (req, res) => {
 			"SELECT * FROM Feedback WHERE CleanerID = ?",
 			[id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.length <= 0) {
 					res.status(404).json({
 						message: "Feedback not found!",
@@ -66,7 +74,9 @@ feedback.post("/", (req, res) => {
 		"INSERT INTO Feedback (CustomerID, CleanerID, Rating, Comments) VALUES (?, ?, ?, ?)",
 		[id, cleanerID, rating, comments],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			let FeedbackID = results.insertId;
 			res.status(200).json({
 				message: "Created Feedback successully!",
@@ -93,7 +103,9 @@ feedback.put("/:id", (req, res) => {
 			`UPDATE Feedback SET ${updateClause} WHERE FeedbackID = ? AND CustomerID = ?`,
 			[feedbackID, id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.affectedRows <= 0) {
 					res.status(404).json({
 						message: "Feedback not found!",
@@ -117,7 +129,9 @@ feedback.put("/:id", (req, res) => {
 			`UPDATE Feedback SET ${updateClause} WHERE FeedbackID = ?`,
 			[id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.affectedRows <= 0) {
 					res.status(404).json({
 						message: "Feedback not found!",
@@ -137,7 +151,9 @@ feedback.delete("/:id", (req, res) => {
 			"DELETE FROM Feedback WHERE FeedbackID = ? AND CustomerID = ?",
 			[feedbackID, id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.affectedRows <= 0) {
 					res.status(404).json({
 						message: "Feedback not found!",
@@ -154,7 +170,9 @@ feedback.delete("/:id", (req, res) => {
 			"DELETE FROM Feedback WHERE FeedbackID = ?",
 			[id],
 			(e, results) => {
-				if (e) throw e;
+				if (e) {
+					res.status(400).json({message: "Error in query", error: e});
+				}
 				if (results.affectedRows <= 0) {
 					res.status(404).json({
 						message: "Feedback not found!",

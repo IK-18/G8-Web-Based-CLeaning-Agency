@@ -15,7 +15,9 @@ admin.get("/accounts/:id", (req, res) => {
 		"SELECT * FROM Customer WHERE CustomerID = ?",
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.length <= 0) {
 				res.status(404).json({
 					message: "User not found!",
@@ -34,7 +36,9 @@ admin.delete("/accounts/:id", (req, res) => {
 		"DELETE FROM Customer WHERE CustomerID = ?",
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.affectedRows <= 0) {
 				res.status(404).json({
 					message: "User not found!",

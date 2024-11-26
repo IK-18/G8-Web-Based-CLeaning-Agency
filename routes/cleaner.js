@@ -5,7 +5,9 @@ const {pool} = require("../utils/db");
 
 cleaners.get("/", (req, res) => {
 	pool.query("SELECT * FROM Cleaner", (e, results) => {
-		if (e) throw e;
+		if (e) {
+			res.status(400).json({message: "Error in query", error: e});
+		}
 		res.status(200).send(results);
 	});
 });
@@ -16,7 +18,9 @@ cleaners.get("/:id", (req, res) => {
 		"SELECT * FROM Cleaner WHERE CleanerID = ?",
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.length <= 0) {
 				res.status(404).json({
 					message: "Cleaner not found!",
@@ -33,7 +37,9 @@ cleaners.post("/", (req, res) => {
 		"INSERT INTO Cleaner (Name) VALUES (?)",
 		[name],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			let CleanerID = results.insertId;
 			res.status(200).json({
 				message: "Created Cleaner successully!",
@@ -58,7 +64,9 @@ cleaners.put("/:id", (req, res) => {
 		`UPDATE Cleaner SET ${updateClause} WHERE CleanerID = ?`,
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.affectedRows <= 0) {
 				res.status(404).json({
 					message: "Cleaner not found!",
@@ -75,7 +83,9 @@ cleaners.delete("/:id", (req, res) => {
 		"DELETE FROM Cleaner WHERE CleanerID = ?",
 		[id],
 		(e, results) => {
-			if (e) throw e;
+			if (e) {
+				res.status(400).json({message: "Error in query", error: e});
+			}
 			if (results.affectedRows <= 0) {
 				res.status(404).json({
 					message: "Cleaner not found!",
